@@ -14,8 +14,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
-@Autowired
-private ProductService productService;
+    @Autowired
+    private ProductService productService;
     @PostMapping
     public ResponseEntity<ProductDTO> createProduct(@RequestBody ProductDTO productDTO){
         System.out.println("hiii");
@@ -23,14 +23,14 @@ private ProductService productService;
         ProductDTO createdProduct = productService.createProduct(productDTO);
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
-   // @GetMapping
-   // public List<ProductDTO> getAllProduct() {
-   //     return productService.getAllProducts();
-   // }
-   @GetMapping
-   public Page<Product> getAllProducts(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "2") int size) {
-       return productService.getAllProducts(page, size);
-   }
+    // @GetMapping
+    // public List<ProductDTO> getAllProduct() {
+    //     return productService.getAllProducts();
+    // }
+    @GetMapping
+    public List<ProductDTO> getAllProducts(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
+        return productService.getAllProducts(page, size);
+    }
     @GetMapping("/{id}")
     public ProductDTO getProductById(@PathVariable Long id){
         return productService.getProductById(id);

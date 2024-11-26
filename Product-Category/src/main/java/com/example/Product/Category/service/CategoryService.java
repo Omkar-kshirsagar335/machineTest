@@ -8,6 +8,7 @@ import com.example.Product.Category.entity.Product;
 import com.example.Product.Category.mapper.CategoryMapper;
 import com.example.Product.Category.mapper.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,12 +29,16 @@ public class CategoryService {
         return CategoryMapper.toCategoryDTO(category);
     }
     // get all categories
-   // public List<CategoryDTO> getAllCategories() {
-     //   return categoryRepository.findAll().stream().map(CategoryMapper::toCategoryDTO).toList();
-  //  }
+    // public List<CategoryDTO> getAllCategories() {
+    //   return categoryRepository.findAll().stream().map(CategoryMapper::toCategoryDTO).toList();
+    //  }
 
-    public Page<Category> getAllCategories(int page, int size) {
-        return categoryRepository.findAll(PageRequest.of(page, size));
+    public List<CategoryDTO> getAllCategories(int page, int size) {
+        Pageable p=PageRequest.of(page, size);
+        Page<Category> cate =categoryRepository.findAll(p);
+        List<Category> allcategory=cate.getContent();
+        //return categoryRepository.findAll(PageRequest.of(page, size));
+        return allcategory.stream().map(CategoryMapper::toCategoryDTO).toList();
     }
 
     // get category by id
@@ -58,7 +63,7 @@ public class CategoryService {
 
 
 
-         categoryRepository.save(category);
+        categoryRepository.save(category);
         return CategoryMapper.toCategoryDTO(category);
     }
 

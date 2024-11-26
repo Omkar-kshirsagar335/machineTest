@@ -24,14 +24,14 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedCategory);
 
     }
-  //  @GetMapping
-  //  public List<CategoryDTO> getAllCategories(){
-   //     return categoryService.getAllCategories();
-  //  }
-  @GetMapping
-  public Page<Category> getAllCategories(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
-      return categoryService.getAllCategories(page, size);
-  }
+    //  @GetMapping
+    //  public List<CategoryDTO> getAllCategories(){
+    //     return categoryService.getAllCategories();
+    //  }
+    @GetMapping
+    public List<CategoryDTO> getAllCategories(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
+        return categoryService.getAllCategories(page, size);
+    }
 
     // get category by id
     @GetMapping("/{id}")
